@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Goodreads Lookup — Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brown-deep:  #382110;
+      --brown-mid:   #5C3A1E;
+      --cream-bg:    #F4F1EA;
+      --cream-card:  #FAFAF8;
+      --border:      #E2DED6;
+      --text-primary:#1a1a1a;
+      --text-muted:  #666;
+      --blue:        #1A4A7A;
+      --green:       #2E7D52;
+      --red:         #C0392B;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--cream-bg);
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-primary);
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 48px 20px 80px;
+      min-height: 100%;
+    }
+
+    .container { width: 100%; max-width: 600px; }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      background: var(--brown-deep);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(56,33,16,0.3);
+    }
+
+    .logo-mark svg { width: 26px; height: 26px; fill: #F4F1EA; }
+
+    .page-header-text h1 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--brown-deep);
+      line-height: 1.2;
+    }
+
+    .page-header-text p { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
+
+    .card {
+      background: var(--cream-card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .card-header {
+      padding: 18px 24px 14px;
+      border-bottom: 1px solid var(--border);
+      background: #F5F3EE;
+    }
+
+    .card-header h2 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--brown-deep);
+    }
+
+    .card-header p { font-size: 12.5px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
+
+    .card-body { padding: 22px 24px; }
+
+    .field { margin-bottom: 18px; }
+    .field:last-child { margin-bottom: 0; }
+
+    label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--brown-deep);
+      margin-bottom: 7px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 10px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      color: var(--text-primary);
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    input[type="password"]:focus {
+      border-color: var(--brown-mid);
+      box-shadow: 0 0 0 3px rgba(56,33,16,0.1);
+    }
+
+    .field-hint { font-size: 11.5px; color: #999; margin-top: 5px; line-height: 1.5; }
+    .field-hint a { color: var(--blue); text-decoration: none; }
+    .field-hint a:hover { text-decoration: underline; }
+
+    /* Free tier badge */
+    .free-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #EBF5F0;
+      color: var(--green);
+      border: 1px solid #C0E0D0;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 10px;
+      margin-bottom: 16px;
+    }
+
+    .btn-row { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+
+    .btn-save {
+      padding: 10px 22px;
+      background: var(--brown-deep);
+      color: #F4F1EA;
+      border: none;
+      border-radius: 9px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      box-shadow: 0 2px 6px rgba(56,33,16,0.25);
+    }
+
+    .btn-save:hover { background: var(--brown-mid); transform: translateY(-1px); }
+    .btn-save:active { transform: translateY(0); }
+
+    .btn-clear {
+      padding: 10px 16px;
+      background: transparent;
+      color: var(--red);
+      border: 1.5px solid #E8C5C1;
+      border-radius: 9px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .btn-clear:hover { background: #FDF2F1; border-color: var(--red); }
+
+    #status-toast {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 10px 14px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 500;
+      animation: fadeIn 0.2s ease;
+    }
+
+    #status-toast.success { display: flex; background: #EBF5F0; color: var(--green); border: 1px solid #C0E0D0; }
+    #status-toast.error   { display: flex; background: #FDF2F1; color: var(--red);   border: 1px solid #F0C8C4; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .steps { list-style: none; counter-reset: steps; }
+
+    .steps li {
+      counter-increment: steps;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .steps li:last-child { margin-bottom: 0; }
+
+    .steps li::before {
+      content: counter(steps);
+      width: 22px;
+      height: 22px;
+      background: var(--brown-deep);
+      color: #F4F1EA;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .steps li a { color: var(--blue); text-decoration: none; }
+    .steps li a:hover { text-decoration: underline; }
+    .steps li code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      background: #EDECE8;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      color: var(--brown-deep);
+    }
+
+    .shortcut-display { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+
+    kbd {
+      display: inline-block;
+      padding: 4px 10px;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-bottom-width: 3px;
+      border-radius: 7px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--brown-deep);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .shortcut-sep { font-size: 12px; color: #bbb; }
+
+    .page-footer { text-align: center; font-size: 12px; color: #aaa; margin-top: 8px; }
+    .page-footer a { color: var(--blue); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header class="page-header">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 3a4 4 0 110 8 4 4 0 010-8zm0 14.5a7.5 7.5 0 01-6.373-3.55C7.19 14.44 9.51 13.5 12 13.5c2.49 0 4.81.94 6.373 2.45A7.5 7.5 0 0112 19.5z"/>
+        </svg>
+      </div>
+      <div class="page-header-text">
+        <h1>Goodreads Lookup</h1>
+        <p>Extension Settings &amp; API Configuration</p>
+      </div>
+    </header>
+
+    <!-- API Key Card -->
+    <div class="card">
+      <div class="card-header">
+        <h2>🔑 Serper.dev API Key</h2>
+        <p>Used to search Google for Goodreads results — fast, reliable, and free to start.</p>
+      </div>
+      <div class="card-body">
+        <div class="free-badge">✓ 2,500 free searches/month — no credit card needed</div>
+        <div class="field">
+          <label for="api-key">Serper API Key</label>
+          <input type="password" id="api-key" placeholder="Paste your Serper API key here…" autocomplete="off" spellcheck="false" />
+          <p class="field-hint">
+            Get your free key at <a href="https://serper.dev" target="_blank" rel="noopener">serper.dev</a> — just sign up with Google, no card required.
+          </p>
+        </div>
+        <div class="btn-row">
+          <button class="btn-save" id="btn-save">Save Key</button>
+          <button class="btn-clear" id="btn-clear">Clear Key</button>
+        </div>
+        <div id="status-toast" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <!-- How to Get Key -->
+    <div class="card">
+      <div class="card-header">
+        <h2>⚡ Get Your Free Serper API Key</h2>
+        <p>Takes under 2 minutes — no credit card, no setup complexity.</p>
+      </div>
+      <div class="card-body">
+        <ol class="steps">
+          <li>
+            Go to <a href="https://serper.dev" target="_blank" rel="noopener">serper.dev</a> and click <strong>Get Started Free</strong>.
+          </li>
+          <li>
+            Sign up with your Google account (one click — no form to fill out).
+          </li>
+          <li>
+            You'll land on the dashboard. Your <strong>API Key</strong> is shown right on the page — click to copy it.
+          </li>
+          <li>
+            Paste it into the field above and click <strong>Save Key</strong>. You're done!
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- How to Use -->
+    <div class="card">
+      <div class="card-header">
+        <h2>📖 How to Use the Extension</h2>
+        <p>Look up any book in seconds, right from the page you're reading.</p>
+      </div>
+      <div class="card-body">
+        <ol class="steps">
+          <li>On any webpage, use your mouse to <strong>highlight a book title</strong>.</li>
+          <li>
+            Press the keyboard shortcut:
+            <div class="shortcut-display" style="margin-top:6px;">
+              <kbd>Ctrl</kbd> + <kbd>B</kbd>
+              <span class="shortcut-sep">/</span>
+              <kbd>⌘ Cmd</kbd> + <kbd>B</kbd>
+            </div>
+          </li>
+          <li>A floating card appears in the <strong>top-right corner</strong> with the Goodreads rating, vote count, and description.</li>
+          <li>Click <strong>"View full book details"</strong> to open the full Goodreads page in a new tab.</li>
+        </ol>
+      </div>
+    </div>
+
+    <p class="page-footer">
+      Your API key is stored locally via <code>chrome.storage.local</code> and only sent to <a href="https://serper.dev" target="_blank" rel="noopener">serper.dev</a> — never anywhere else.
+    </p>
+
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>

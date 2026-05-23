@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Goodreads Lookup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 260px;
+      background: #F4F1EA;
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      color: #1a1a1a;
+      padding: 0;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px 12px;
+      background: #382110;
+    }
+
+    .logo {
+      width: 28px;
+      height: 28px;
+      background: rgba(244,241,234,0.15);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo svg {
+      width: 16px;
+      height: 16px;
+      fill: #F4F1EA;
+    }
+
+    .header-text h1 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #F4F1EA;
+      line-height: 1.2;
+    }
+
+    .header-text p {
+      font-size: 11px;
+      color: rgba(244,241,234,0.65);
+      margin-top: 1px;
+    }
+
+    .body {
+      padding: 16px;
+    }
+
+    .shortcut-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 12px 14px;
+      border: 1px solid #E2DED6;
+      margin-bottom: 12px;
+    }
+
+    .shortcut-card p {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .keys {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    kbd {
+      display: inline-block;
+      padding: 3px 8px;
+      background: #F5F3EE;
+      border: 1.5px solid #D8D4CC;
+      border-bottom-width: 3px;
+      border-radius: 6px;
+      font-family: 'SF Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: #382110;
+    }
+
+    .key-sep {
+      font-size: 11px;
+      color: #bbb;
+      padding: 0 2px;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .status-row.ok   { background: #EBF5F0; color: #2E7D52; border: 1px solid #C0E0D0; }
+    .status-row.warn { background: #FDF7ED; color: #A05C00; border: 1px solid #F0DDB8; }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .status-row.ok   .status-dot { background: #2E7D52; }
+    .status-row.warn .status-dot { background: #E8871A; }
+
+    .btn-options {
+      display: block;
+      width: 100%;
+      padding: 9px;
+      background: #382110;
+      color: #F4F1EA;
+      border: none;
+      border-radius: 9px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .btn-options:hover { background: #5C3A1E; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 3a4 4 0 110 8 4 4 0 010-8zm0 14.5a7.5 7.5 0 01-6.373-3.55C7.19 14.44 9.51 13.5 12 13.5c2.49 0 4.81.94 6.373 2.45A7.5 7.5 0 0112 19.5z"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <h1>Goodreads Lookup</h1>
+      <p>Instant book ratings</p>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="shortcut-card">
+      <p>Highlight any book title, then press:</p>
+      <div class="keys">
+        <kbd>Ctrl</kbd><span class="key-sep">+</span><kbd>B</kbd>
+        <span class="key-sep" style="margin:0 4px;">or</span>
+        <kbd>⌘</kbd><span class="key-sep">+</span><kbd>B</kbd>
+      </div>
+    </div>
+
+    <div id="status-row" class="status-row warn">
+      <div class="status-dot"></div>
+      <span id="status-text">Checking API keys…</span>
+    </div>
+
+    <a id="options-link" class="btn-options">⚙ Open Settings</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
